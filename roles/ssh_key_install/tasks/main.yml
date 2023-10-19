@@ -12,7 +12,7 @@
 - name: Generate SSH keys on master1
   command:
     cmd: ssh-keygen -t rsa -f /postgresql/.ssh/id_rsa -N ""
-  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
+  when: "pgpool_primary_node_ip in ansible_host"
   become: true
   become_user: postgres
   args:
@@ -23,4 +23,4 @@
     src: /postgresql/.ssh/id_rsa.pub
     dest: "/tmp/id_rsa.pub"
     flat: yes
-  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
+  when: "pgpool_primary_node_ip in ansible_host"

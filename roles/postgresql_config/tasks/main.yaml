@@ -49,12 +49,3 @@
 # remove the script on remote
 - name: Delete sql script
   file: path="{{pgpool_postgresql_data_directory}}/users.sql" state=absent
-
-- name: Configure | Upload .pgpass file for postgres user
-  template:
-    src: pgpass.j2
-    dest: "{{ pgpool_postgresql_home_directory }}/.pgpass"
-    owner: postgres
-    mode: 0600
-    trim_blocks: no
-  when: pgpool_pgpass_entries | length > 0

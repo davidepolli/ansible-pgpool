@@ -76,3 +76,15 @@
     name: postgres-sudoers
     user: postgres
     commands: ALL
+
+ 
+  #template:
+  #  src: pgpass.j2
+  #  dest: "{{ pgpool_postgresql_home_directory }}/.pgpass"
+  #  owner: postgres
+  #  mode: 0600
+  #  trim_blocks: no
+  #when: pgpool_pgpass_entries | length > 0
+
+
+
