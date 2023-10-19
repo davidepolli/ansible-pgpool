@@ -13,7 +13,7 @@
   command:
     cmd: ssh-keygen -t rsa -f /postgresql/.ssh/id_rsa -N ""
   when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
-  become: yes
+  become: true
   become_user: postgres
   args:
     creates: /postgresql/.ssh/id_rsa
