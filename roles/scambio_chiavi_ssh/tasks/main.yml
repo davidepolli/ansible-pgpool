@@ -5,14 +5,14 @@
     src: /postgresql/.ssh/id_rsa
     dest: "/tmp/id_rsa"
     flat: yes
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 - name: Ensure SSH public key is available
   fetch:
     src: /postgresql/.ssh/id_rsa.pub
     dest: "/tmp/id_rsa.pub"
     flat: yes
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 - name: Copy id_rsa and id_rsa.pub to node 2 and node 3
   copy:
@@ -27,7 +27,7 @@
     - { host: 'postgres2.local', key: 'id_rsa.pub' }
     - { host: 'postgres3.local', key: 'id_rsa' }
     - { host: 'postgres3.local', key: 'id_rsa.pub' }
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 
 # ... (precedenti tasks)
@@ -37,14 +37,14 @@
     src: /postgresql/.ssh/id_rsa
     dest: "/tmp/id_rsa"
     flat: yes
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 - name: Ensure SSH public key is available
   fetch:
     src: /postgresql/.ssh/id_rsa.pub
     dest: "/tmp/id_rsa.pub"
     flat: yes
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 - name: Copy id_rsa and id_rsa.pub to node 2 and node 3
   copy:
@@ -59,7 +59,7 @@
     - { host: 'postgres2.local', key: 'id_rsa.pub' }
     - { host: 'postgres3.local', key: 'id_rsa' }
     - { host: 'postgres3.local', key: 'id_rsa.pub' }
-  when: "'postgres1.local' in ansible_host"
+  when: "'{{ pgpool_primary_node_ip }}' in ansible_host"
 
 - name: Set up authorized_keys on all nodes
   copy:

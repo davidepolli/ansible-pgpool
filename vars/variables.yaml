@@ -1,6 +1,6 @@
 # network interface
 network_interface_name: enp0s3
-pgpool_primary_node: postgres1.local
+pgpool_primary_node_ip: 10.0.20.4
 
 postgres_password: postgres123
 repl_password: repl123
