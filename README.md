@@ -1,5 +1,5 @@
-# postgresql14
-# postgresql14
+# ansible playbook for installing postgres-pgool
 
 
-# for pgpool version 4.3.x"# ansible-pgpool" 
+
+for pgpool version 4.3.x"# ansible-pgpool" 
