@@ -67,6 +67,11 @@ pgpool_enable_pool_hba: 'on'
 pgpool_pool_hba_entries:
   - type: host
     database: all
+    user: all
+    address: 0.0.0.0/0
+    method: trust
+  - type: host
+    database: all
     user: pgpool
     address: 10.0.0.0/8
     method: trust
