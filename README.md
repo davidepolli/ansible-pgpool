@@ -2,4 +2,4 @@
 
 
 
-for pgpool version 4.3.x"# ansible-pgpool" 
+for pgpool version 4.3.x
