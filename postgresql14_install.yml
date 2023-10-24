@@ -12,13 +12,15 @@
 
     - role: postgresql_service
       
-    - role: ssh_key_install
+    #- role: ssh_key_install
 
     - role: pgpool2_install
     
     - role: pgpool2_config
 
-    - role: scambio_chiavi_ssh
+    #- role: scambio_chiavi_ssh
+    
+    - role: passwordless_ssh_config
 
     - role: log_config
 

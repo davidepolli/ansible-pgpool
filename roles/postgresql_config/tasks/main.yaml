@@ -19,17 +19,17 @@
     backup: true
 
 - name: Replace content of /postgresql/pg_data/pgpool_remote_start
-  copy:
+  template:
     dest: "/postgresql/pg_data/pgpool_remote_start"
-    src: "{{ playbook_dir }}/files/postgres/pgpool_remote_start"
+    src: pgpool_remote_start.j2
     owner: postgres
     group: postgres
     mode: '0744'
 
 - name: Replace content of /postgresql/pg_data/recovery_1st_stage
-  copy:
+  template:
     dest: "/postgresql/pg_data/recovery_1st_stage"
-    src: "{{ playbook_dir }}/files/postgres/recovery_1st_stage"
+    src: recovery_1st_stage.j2
     owner: postgres
     group: postgres
     mode: '0744'
@@ -41,7 +41,9 @@
 
 # copythe sql script for user creation on remote
 - name: Template sql script
-  template:  src="users.sql.j2" dest="{{pgpool_postgresql_data_directory}}/users.sql"
+  template:  
+    src: "users.sql.j2" 
+    dest: "{{pgpool_postgresql_data_directory}}/users.sql"
 # execute the script
 - name: Execute sql script
   command: "psql -p 5433 -f {{ pgpool_postgresql_data_directory }}/users.sql"

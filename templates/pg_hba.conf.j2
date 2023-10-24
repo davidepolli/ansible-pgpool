@@ -99,7 +99,7 @@ host    replication     all             ::1/128                 trust
 
 
 # User custom
-{% for connection in pgpool_pool_hba_entries %}
+{% for connection in pg_hba_entries %}
 {% if connection.comment is defined %}
 # {{connection.comment}}
 {% endif %}

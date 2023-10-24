@@ -67,6 +67,12 @@
     cmd: usermod -d /postgresql postgres
   become: true
   
+- name: Update postgres user password
+  user:
+    name: postgres
+    password: "{{ postgres_os_password }}"  # The new password you want to set
+  register: user_updated
+
 - name: >-
     Add postgres user to sudoers. thanks to the community.general.sudoers module, 
     that is part of the "community.general collection", version 7.5.0, installed
@@ -76,15 +82,6 @@
     name: postgres-sudoers
     user: postgres
     commands: ALL
-
- 
-  #template:
-  #  src: pgpass.j2
-  #  dest: "{{ pgpool_postgresql_home_directory }}/.pgpass"
-  #  owner: postgres
-  #  mode: 0600
-  #  trim_blocks: no
-  #when: pgpool_pgpass_entries | length > 0
 
 
 
