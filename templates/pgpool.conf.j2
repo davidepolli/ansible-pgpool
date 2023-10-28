@@ -24,7 +24,7 @@
 # (change requires restart)
 #------------------------------------------------------------------------------
 
-backend_clustering_mode = 'streaming_replication'
+#backend_clustering_mode = 'streaming_replication'
 
 #------------------------------------------------------------------------------
 # CONNECTIONS
@@ -948,6 +948,9 @@ hostname0 = ''
                                    # that don't write to database
                                    # Regexp are accepted
 
+
+backend_clustering_mode = '{{ pgpool_backend_clustering_mode }}'
+
 listen_addresses = '{{ pgpool_listen_addresses }}'
 port = {{ pgpool_port }}
 pcp_listen_addresses = '{{ pgpool_pcp_listen_addresses }}'
@@ -982,7 +985,8 @@ failover_command = '{{ pgpool_failover_command }}'
 follow_primary_command = '{{ pgpool_follow_primary_command }}' 
 recovery_user = '{{ pgpool_recovery_user }}'
 recovery_password = '{{ pgpool_recovery_password }}'
-recovery_1st_stage_command = '{{ pgpool_recovery_1st_stage_command }}' 
+recovery_1st_stage_command = '{{ pgpool_recovery_1st_stage_command }}'
+wd_escalation_command = '{{ pgpool_wd_escalation_command }}'
 use_watchdog = {{ pgpool_use_watchdog }}
 delegate_IP = '{{ pgpool_delegate_IP }}'
 if_up_cmd = '{{ pgpool_if_up_cmd }}'

@@ -1,11 +1,14 @@
 # network interface
-network_interface_name: enp0s3
-pgpool_primary_node_ip: 10.0.20.4
+network_interface_name: enp0s8
+pgpool_primary_node_ip: 192.168.56.40
 # pcp users
 pgpool_pcp_password: "pgpool"
-
+postgres_os_password_cleartext: system
 postgres_os_password: "$6$1ks0hgdv6tKOVDqV$6T.nqkEe.6Vs6jMea2yXP0gruEqub1U0wG6G7.KF2fEPOW.U7BWqMh6fhqXxR5ZU3c5U7POmbW4Gj.bTGuglA1"
 
+
+# key name
+ssh_key_name : id_rsa_pgpool
 # db roles passwords
 dbrole_pgpool_password: "pgpooldb"
 dbrole_repl_password: "repldb"
@@ -34,13 +37,13 @@ pg_hba_entries:
   - type: host
     database: all
     user: all
-    address: samenet
-    method: md5
+    address: 192.168.56.0/24
+    method: trust
   - type: host
     database: replication
     user: all
-    address: samenet
-    method: md5
+    address: 192.168.56.0/24
+    method: trust
 
 # .pgpass contains password, plain text, that allows for 
 # passwordless execution of psql commands
@@ -62,6 +65,7 @@ pgpool_pgpass_entries:
     password: "{{ dbrole_pgpool_password }}"
  
 # pgpool conf
+pgpool_backend_clustering_mode: streaming_replication
 pgpool_user: pgpool
 pgpool_postgresql_home_directory: /postgresql
 pgpool_postgresql_data_directory: "{{ pgpool_postgresql_home_directory }}/pg_data"
@@ -109,13 +113,13 @@ pgpool_pool_hba_entries:
   - type: host
     database: all
     user: pgpool
-    address: 10.0.20.0/24
-    method: md5
+    address: 192.168.56.0/24
+    method: trust
   - type: host
     database: all
     user: postgres
-    address: 10.0.20.0/24
-    method: md5
+    address: 192.168.56.0/24
+    method: trust
  
 # logs
 pgpool_log_hostname: 'on'
@@ -148,9 +152,11 @@ pgpool_follow_primary_command: "{{ pgpool_home_directory }}/follow_master.sh %d 
 pgpool_failover_command: "{{ pgpool_home_directory }}/failover.sh %d %h %p %D %m %H %M %P %r %R %N %S"
 pgpool_failover_on_backend_error: 'off'
 pgpool_auto_failback: 'on'
+#wd escalation 
+pgpool_wd_escalation_command: "{{ pgpool_home_directory }}/escalation.sh"
 # Watchdog
 pgpool_use_watchdog: 'on'
-pgpool_delegate_IP: 10.0.20.30
+pgpool_delegate_IP: 192.168.56.50
 pgpool_if_up_cmd: '/usr/bin/sudo /sbin/ip addr add $_IP_$/16 dev {{ network_interface_name }} label {{ network_interface_name }}:0'
 pgpool_if_down_cmd: '/usr/bin/sudo /sbin/ip addr del $_IP_$/16 dev {{ network_interface_name }}'
 pgpool_arping_path: '/usr/sbin' 

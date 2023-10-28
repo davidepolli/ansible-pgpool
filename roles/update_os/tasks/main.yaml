@@ -1,18 +1,28 @@
 ---
 
-- name: Aggiorna il repository del sistema
-  apt:
-    update_cache: yes
+#- name: Aggiorna il repository del sistema
+#  apt:
+#    update_cache: yes
 
-- name: Effettua l'upgrade dei pacchetti
-  apt:
-    upgrade: yes
+#- name: Effettua l'upgrade dei pacchetti
+#  apt:
+#    upgrade: yes
 
-- name: Rimuovi i pacchetti non necessari
-  apt:
-    autoremove: yes
+#- name: Rimuovi i pacchetti non necessari
+#  apt:
+#    autoremove: yes
 
 - name: Installa bash-completion
   apt:
     name: bash-com*
+    state: present
+
+- name: Installa sshpass
+  apt:
+    name: sshpass
+    state: present
+
+- name: Installa psycopg2
+  apt:
+    name: python3-psycopg2
     state: present

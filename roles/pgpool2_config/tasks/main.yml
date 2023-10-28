@@ -34,6 +34,14 @@
     group: "postgres"
     mode: '0777'
 
+- name: Replace content of /etc/pgpool2/escalation.sh
+  template:
+    dest: "{{ pgpool_home_directory }}/escalation.sh"
+    src: escalation.sh.j2
+    owner: "postgres"
+    group: "postgres"
+    mode: '0777'
+
 - name: Configure | Generate pool_passwd file using md5 auth method
   shell:
     cmd: |
