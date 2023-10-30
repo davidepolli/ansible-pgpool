@@ -33,8 +33,22 @@
   become: true
   become_user: postgres
   command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/{{ ssh_key_name }} -N ""
-  #register: postgres_keygen_output
-  #changed_when: postgres_keygen_output.rc != 0  # Mark the task as changed if keygen_output.rc is not 0
+
+
+- name: Delete existing SSH key if it exists
+  command: rm -f ~/.ssh/id_rsa
+  ignore_errors: true
+  become: true
+  become_user: postgres
+  register: postgres_default_key_delete_result
+  changed_when: postgres_default_key_delete_result.rc == 0
+
+- name: Generate postgres default SSH Key Pair
+  become: true
+  become_user: postgres
+  command: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+ 
+
 
 # from the documentation https://www.pgpool.net/docs/43/en/html/example-cluster.html#EXAMPLE-CLUSTER-PRE-SETUP
 # we need to enable passwordless ssh on all server with a key named id_rsa_pgpool, the default name of the key
@@ -45,6 +59,12 @@
 
 - name: ssh passwordless with id_rsa_pgpool for user postgres
   command: sshpass -p {{ postgres_os_password_cleartext }} ssh-copy-id -i ~/.ssh/{{ ssh_key_name }} -o StrictHostKeyChecking=no postgres@{{ item }}
+  with_items: "{{ groups['masters'] }}"
+  become: true
+  become_user: postgres
+
+- name: ssh default key passwordless with id_rsa for user postgres
+  command: sshpass -p {{ postgres_os_password_cleartext }} ssh-copy-id -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no postgres@{{ item }}
   with_items: "{{ groups['masters'] }}"
   become: true
   become_user: postgres
