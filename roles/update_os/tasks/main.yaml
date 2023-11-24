@@ -1,16 +1,14 @@
 ---
 
-#- name: Aggiorna il repository del sistema
-#  apt:
-#    update_cache: yes
-
-#- name: Effettua l'upgrade dei pacchetti
-#  apt:
-#    upgrade: yes
-
-#- name: Rimuovi i pacchetti non necessari
-#  apt:
-#    autoremove: yes
+- name: Aggiorna il repository del sistema
+  apt:
+    update_cache: yes
+- name: Effettua l'upgrade dei pacchetti
+  apt:
+    upgrade: yes
+- name: Rimuovi i pacchetti non necessari
+  apt:
+    autoremove: yes
 
 - name: Installa bash-completion
   apt:
